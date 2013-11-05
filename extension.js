@@ -18,14 +18,11 @@ const CpuFreq = new Lang.Class({
     _init: function(metadata, params){
         this.parent(null, IndicatorName);
         
-        //title for the label
-        this.title = "!";
-
         //cpupower installed
         this.util_present = false;
        
-        this._label = new St.Label({
-            text: "--",
+        this.label = new St.Label({
+            text: "!",
             style_class: "cpufreq-label"
         });
         
@@ -65,12 +62,7 @@ const CpuFreq = new Lang.Class({
             if(cpupower_output2[0]) governoractual = cpupower_output2[1].toString().split("\n", 2)[1].split(" ")[2].toString();
             
             for each (let governor in governorslist){
-                let governortemp;
-                if(governoractual==governor)
-                    governortemp=[governor,true];
-                else
-                    governortemp=[governor,false];
-                governors.push(governortemp);                
+                governors.push( [governor, (governoractual == governor)] );                
             }
         }
         
@@ -83,14 +75,9 @@ const CpuFreq = new Lang.Class({
             let cpupower_output = GLib.spawn_command_line_sync(this.cpuPowerPath+" frequency-info -fm");//get output of cpupower frequency-info -fm
             if(cpupower_output[0]) freqInfo = cpupower_output[1].toString().split("\n")[1];
             if (freqInfo){
-                this.title=freqInfo;
+                this.label.set_text(freqInfo);
             }
         }
-        else{
-            this.title="!"
-        }
-        
-        this._label.set_text(this.title);
     },
     
     _update_popup: function() {
@@ -102,9 +89,9 @@ const CpuFreq = new Lang.Class({
             //build the popup menu
             if (this.governors.length>0){
                 let governorItem;
-                for (let i = 0; i < this.governors.length; i++) {
-                    governorItem = new PopupMenu.PopupMenuItem((this.governors[i])[0]);
-                    governorItem.setOrnament((this.governors[i])[1]);                    
+                for each (let governor in this.governors) {
+                    governorItem = new PopupMenu.PopupMenuItem(governor[0]);
+                    governorItem.setOrnament(governor[1]);                    
                     governorItem.connect('activate', function(self) {
                             Util.spawn(["pkexec", "cpupower", "frequency-set", "-g", self.label.text ]);
                     });
@@ -113,8 +100,7 @@ const CpuFreq = new Lang.Class({
             }
         }
         else{
-            let errorItem;
-            errorItem = new PopupMenu.PopupMenuItem("Please install cpupower");
+            let errorItem = new PopupMenu.PopupMenuItem("Please install cpupower");
             this.menu.addMenuItem(errorItem);
         }    
     },
@@ -125,7 +111,7 @@ const CpuFreq = new Lang.Class({
             c.destroy()
         });
         
-        this.actor.add_actor(this._label);
+        this.actor.add_actor(this.label);
         this._update_freq();
         this._update_popup();
         
