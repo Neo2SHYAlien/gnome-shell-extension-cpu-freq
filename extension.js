@@ -102,16 +102,13 @@ const CpuFreq = new Lang.Class({
             //build the popup menu
             if (this.governors.length>0){
                 let governorItem;
-                for each (let governor in this.governors){
-                    governorItem = new PopupMenu.PopupMenuItem(governor[0]);
-                    governorItem.setOrnament(governor[1]);
+                for (let i = 0; i < this.governors.length; i++) {
+                    governorItem = new PopupMenu.PopupMenuItem((this.governors[i])[0]);
+                    governorItem.setOrnament((this.governors[i])[1]);                    
+                    governorItem.connect('activate', function(self) {
+                            Util.spawn(["pkexec", "cpupower", "frequency-set", "-g", self.label.text ]);
+                    });
                     this.menu.addMenuItem(governorItem);
-                    
-                    governorItem.connect('activate', Lang.bind(this, function() {
-                        for (i = 0 ;i < this._get_cpu_number();i++){
-                            GLib.spawn_command_line_async(this.cpuPowerPath+" frequency-set -g "+governorLabel.text);
-                        }
-                    }));
                 }
             }
         }

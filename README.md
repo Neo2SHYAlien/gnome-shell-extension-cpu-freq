@@ -15,6 +15,11 @@ cpupower is the tool we are using, support for Ubuntu is coming in Sausy hopeful
 
 PLEASE PLEASE PLEASE READ THE ARCH LINUX WIKI PAGE CAREFULLY
 
+Policy
+------
+
+I included the policy I use on Arch Linux (systemd init system) put it in /usr/share/polkit-1/actions/
+
 Thanks
 ------
 https://github.com/Farsx  
