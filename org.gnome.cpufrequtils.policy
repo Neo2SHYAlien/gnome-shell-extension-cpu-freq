@@ -2,12 +2,12 @@
 <!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD polkit Policy Configuration 1.0//EN"
 "http://www.freedesktop.org/software/polkit/policyconfig-1.dtd">
 <policyconfig>
-  <action id="org.freedesktop.policykit.pkexec.run-cpupower">
+  <action id="org.freedesktop.policykit.pkexec.run-cpufrequtils">
     <defaults>
       <allow_any>no</allow_any>
       <allow_inactive>no</allow_inactive>
       <allow_active>yes</allow_active>
-    </defaults>		
-  <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/cpupower</annotate>
+    </defaults>
+  <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/cpufreq-set</annotate>
   </action>
 </policyconfig>

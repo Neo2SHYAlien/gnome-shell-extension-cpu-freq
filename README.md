@@ -9,11 +9,11 @@ cpufreq
 -------
 
 You need CPU Frequency scaling set up to use it.  
-**Archlinux**: https://wiki.archlinux.org/index.php/CPU_Frequency_Scaling
+**Debian**: https://wiki.debian.org/HowTo/CpuFrequencyScaling
 
-cpupower is the tool we are using, support for Ubuntu is coming in Sausy hopefully.
+cpufrequtils is the tool we are using: apt-get install cpufrequtils
 
-PLEASE PLEASE PLEASE READ THE ARCH LINUX WIKI PAGE CAREFULLY
+PLEASE PLEASE PLEASE READ THE DEBIAN LINUX WIKI PAGE CAREFULLY
 
 Policy
 ------
