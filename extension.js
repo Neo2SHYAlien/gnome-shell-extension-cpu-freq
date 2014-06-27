@@ -6,6 +6,7 @@ const Main = imports.ui.main;
 const GLib = imports.gi.GLib;
 const Util = imports.misc.util;
 const Mainloop = imports.mainloop;
+const Clutter = imports.gi.Clutter;
 let indicator;
 let _event = null;
 
@@ -22,7 +23,8 @@ const CpuFreq = new Lang.Class({
         this.util_present = false;
 
         this.label = new St.Label({
-            text: "!"
+            text: "!",
+            y_align: Clutter.ActorAlign.CENTER 
         });
 
         this.cpuFreqInfoPath = GLib.find_program_in_path('cpufreq-info');
