@@ -103,7 +103,7 @@ const CpuFreq = new Lang.Class({
                 }
             }
         } else {
-            let errorItem = new PopupMenu.PopupMenuItem("Please install cpupower");
+            let errorItem = new PopupMenu.PopupMenuItem("Please install cpufrequtils");
             this.menu.addMenuItem(errorItem);
         }
     },
