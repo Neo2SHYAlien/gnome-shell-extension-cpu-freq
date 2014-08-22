@@ -67,7 +67,9 @@ const CpuFreq = new Lang.Class({
             }
 
             for each (let governor in governorslist) {
-                governors.push( [governor, (governoractual == governor)] );
+                // Capitalize the First letter of the governor name
+                governorLabel = governor[0].toUpperCase() + governor.slice(1);
+                governors.push( [governorLabel, (governoractual == governor)] );
             }
         }
         return governors;
